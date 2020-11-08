@@ -15,7 +15,8 @@ This tools works on MAC and Linux (no Windows).
 
 On a command line, run: 
 
-```web-page-acquire.py [-h] [--mode {page,browsing}] [--page PAGE]
+```
+web-page-acquire.py [-h] [--mode {page,browsing}] [--page PAGE]
                            [--outdir OUTDIR] [--noscroll] [--userprofile]
 ```
 
