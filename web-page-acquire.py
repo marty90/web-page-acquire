@@ -58,9 +58,11 @@ def start_tcpdump():
 def start_ffmpeg():
     global proc_ffmpeg
     if platform == "Linux":
-        CMD = "ffmpeg -y -framerate 10 -f avfoundation -i '1:' {}".format(os.path.join(outpath, "video.mkv"))
+        CMD = "ffmpeg -f x11grab -s 1280x1024  -r 25 -i :0.0+0,0 {}".format(os.path.join(outpath, "video.mkv"))
     else:
         video_device = subprocess.check_output('ffmpeg -f avfoundation -list_devices true -i "" 2>&1 | grep "Capture screen" | grep --color=never -o "\[[0-9]\]"  | tr -d []', shell = True).decode("ascii").strip()
+
+        video_device = forcescreen if forcescreen is not None else video_device
         log("Video Device: {}".format(video_device))
         CMD = "ffmpeg -y -framerate 10 -f avfoundation -i '{}:' {}".format(video_device, os.path.join(outpath, "video.mkv"))
     FNULL = open(os.devnull, 'w')
@@ -309,6 +311,7 @@ def main():
     parser.add_argument('--outdir', type=str, default=".")
     parser.add_argument('--noscroll', action='store_true')
     parser.add_argument('--userprofile', action='store_true')
+    parser.add_argument('--forcescreen', type=int, default=None)
 
     globals().update(vars(parser.parse_args()))
 

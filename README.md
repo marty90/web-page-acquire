@@ -11,6 +11,13 @@ You need Python3, Google Chrome, `ffmpeg`, `pdflatex` and `dumpcap` installed.
 The needed Python libraries are listed in `requirements.txt`.
 This tools works on MAC and Linux (no Windows).
 
+Notes:
+
+* To record the video, it uses `ffmpeg`. You should check that the correct screen is detected.
+
+* To capture packets, it uses `dumpcap`. Check it can work without superuser privileges. If not, add the SUID bit to the `dumpcap` binary.
+
+
 ## Usage
 
 On a command line, run: 
@@ -18,15 +25,20 @@ On a command line, run:
 ```
 web-page-acquire.py [-h] [--mode {page,browsing}] [--page PAGE]
                            [--outdir OUTDIR] [--noscroll] [--userprofile]
+                           [--forcescreen FORCESCREEN]
 ```
 
-`mode` can be `page` to acquire a specific page (that you must specify with the `--page` option) or `browsing`, to allow you to browse and acquire multiple pages.
+* `mode` can be `page` to acquire a specific page (that you must specify with the `--page` option) or `browsing`, to allow you to browse and acquire multiple pages.
 
-By default, WPA stores the output creating a folder in the current directory.  You can override this behavior with `--outdir OUTDIR`.
+* By default, WPA stores the output creating a folder in the current directory.
+You can override this behavior with `--outdir OUTDIR`.
 
-By default, WPA scrolls  the page when in `page` mode to acquire the whole content. You can prevent this with `--noscroll`.
+* By default, WPA scrolls  the page when in `page` mode to acquire the whole content.
+You can prevent this with `--noscroll`.
 
-By default, WPA opens a new Chrome profile, with no user data. You can use your default profile with `--userprofile`, to have access to your logins, etc.
+* WPA autodetects the output screen. If it fails, force is with `--forcescreen FORCESCREEN`.
+
+* By default, WPA opens a new Chrome profile, with no user data. You can use your default profile with `--userprofile`, to have access to your logins, etc.
 
 **Note:** with `--userprofile`, you should close Chrome before starting.
 
